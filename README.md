@@ -39,10 +39,27 @@ free text against per-scenario keyword sets to pick a script, then fills its
 ## Audio
 
 `src/components/ambient/soundGenerators.js` builds white/pink/brown noise
-buffers and shapes them with filters and slow LFOs into four soundscapes
-(Gentle Rain, Ocean Brown Noise, Forest Wind, Soft Hum — a 136 Hz drone with a
-6 Hz binaural offset). The `AudioContext` is created lazily on the first user
-gesture, as autoplay policies require, and all gain changes are ramped.
+buffers and shapes them with filters and slow LFOs into five soundscapes. Three
+are pure texture — Ocean Brown Noise, Forest Wind, and Soft Hum (a 136 Hz drone
+with a 6 Hz binaural offset). Two are played rather than filtered:
+
+- **Classic Strings** (the default) — a slow canon in D. Each bar lays a bowed
+  chord (detuned saw pairs under a slowly opening lowpass) under a five-note
+  piano line, over the eight-chord ground bass most of the calm classical
+  repertoire is built on.
+- **Gentle Rain** — a darker, quieter rain bed with an unhurried piano over it,
+  drawing from an F pentatonic scale so no two notes can clash, every 4–8
+  seconds.
+
+Both pitched voices share three helpers in the same file: `pianoNote` (sine
+partials with per-partial decay under a lowpass that closes as the note rings
+out), `stringChord`, and `noteScheduler`, whose `tick(at)` returns the seconds
+to wait before the next call — so a generator can play in strict time or
+loosely. Reverb is a `ConvolverNode` over a procedurally generated impulse
+response, so there is still no audio file anywhere in the project.
+
+The `AudioContext` is created lazily on the first user gesture, as autoplay
+policies require, and all gain changes are ramped.
 
 ## Two conventions worth knowing
 

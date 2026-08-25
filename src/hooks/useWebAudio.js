@@ -14,7 +14,7 @@ export function useWebAudio() {
   const voiceRef = useRef(null)
 
   const [isPlaying, setIsPlaying] = useState(false)
-  const [preset, setPreset] = useState('rain')
+  const [preset, setPreset] = useState('classic')
   const [volume, setVolume] = useState(0.5)
   const [isReady, setIsReady] = useState(false)
 
